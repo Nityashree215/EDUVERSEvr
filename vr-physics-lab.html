@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR Physics Lab</title>
+    <link rel="stylesheet" href="vr-physics-lab.css">
+</head>
+<body>
+    <header>
+        <h1>VR Physics Lab</h1>
+        <p>Perform hands-on experiments with real-time interactivity in a virtual environment.</p>
+    </header>
+    <main>
+        <section class="experiment gold-foil">
+            <h2>Gold Foil Experiment</h2>
+            <p>Explore Rutherford's Gold Foil Experiment. Use the arrow keys to move particles and observe the deflection.</p>
+            <canvas id="goldFoilCanvas"></canvas>
+            <button onclick="startGoldFoilExperiment()">Start Experiment</button>
+        </section>
+        <section class="experiment circuits">
+            <h2>Build a Circuit</h2>
+            <p>Drag and drop components to build a functional circuit.</p>
+            <div id="circuitArea">
+                <div class="component" draggable="true">Battery</div>
+                <div class="component" draggable="true">Wire</div>
+                <div class="component" draggable="true">Bulb</div>
+                <div class="component" draggable="true">Switch</div>
+            </div>
+            <button onclick="checkCircuit()">Check Circuit</button>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 Eduverse VR. All Rights Reserved.</p>
+    </footer>
+    <script src="vr-physics-lab.js"></script>
+</body>
+</html>

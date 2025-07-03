@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR Biology Lab - Mitosis Experiment</title>
+    <link rel="stylesheet" href="vr-biology-lab.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="vr-labs.html" class="nav-link">VR Labs</a>
+            <a href="#" class="nav-link" id="restart-experiment">Restart Experiment</a>
+        </nav>
+
+        <!-- Header -->
+        <header>
+            <h1>VR Biology Lab: Mitosis Experiment</h1>
+            <p>Perform the experiment to study mitosis using an onion root tip.</p>
+        </header>
+
+        <!-- Experiment Instructions -->
+        <section class="instructions">
+            <h2>Experiment Instructions</h2>
+            <ol>
+                <li>Use the keyboard keys to manipulate the apparatus.</li>
+                <li>Cut the onion root tip (Press <b>C</b>).</li>
+                <li>Place the root tip on the slide and stain it (Press <b>P</b>).</li>
+                <li>Heat the slide gently (Press <b>H</b>).</li>
+                <li>Focus the slide under the microscope (Press <b>M</b>).</li>
+            </ol>
+        </section>
+
+        <!-- Experiment Area -->
+        <section class="experiment-area">
+            <div id="lab-area">
+                <div id="onion-root-tip" class="apparatus">
+                    <img src="images/onion-root-tip.png" alt="Onion Root Tip">
+                    <p>Onion Root Tip</p>
+                </div>
+                <div id="scalpel" class="apparatus">
+                    <img src="images/scalpel.png" alt="Scalpel">
+                    <p>Scalpel</p>
+                </div>
+                <div id="glass-slide" class="apparatus">
+                    <img src="images/glasss-slide.png" alt="Glass Slide">
+                    <p>Glass Slide</p>
+                </div>
+                <div id="bunsen-burner" class="apparatus">
+                    <img src="images/bunsen-burner.png" alt="Bunsen Burner">
+                    <p>Bunsen Burner</p>
+                </div>
+                <div id="stain" class="apparatus">
+                    <img src="images/stain1.png" alt="Acetocarmine Stain">
+                    <p>Acetocarmine Stain</p>
+                </div>
+                <div id="microscope" class="apparatus">
+                    <img src="images/microscope.png" alt="Microscope">
+                    <p>Microscope</p>
+                </div>
+            </div>
+
+            <!-- Visual Feedback Area -->
+            <div id="experiment-feedback">
+                <h3>Experiment Status:</h3>
+                <p id="feedback">Waiting to start...</p>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" style="display: none;">
+            <h2>Experiment Results: Mitosis Stages</h2>
+            <p>You successfully observed the stages of mitosis:</p>
+            <ol>
+                <li><b>Prophase:</b> Chromosomes become visible, spindle fibers appear.</li>
+                <li><b>Metaphase:</b> Chromosomes align at the cell's equator.</li>
+                <li><b>Anaphase:</b> Chromosomes separate and move toward opposite poles.</li>
+                <li><b>Telophase:</b> Two nuclei form; cell division begins.</li>
+            </ol>
+            <img src="images/mitosis-stages.png" alt="Stages of Mitosis">
+        </section>
+    </div>
+    <script src="vr-biology-lab.js"></script>
+</body>
+</html>

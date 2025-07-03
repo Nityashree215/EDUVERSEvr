@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR Chemistry Lab</title>
+    <link rel="stylesheet" href="vr-chemistry-lab.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Back to VR Labs Navigation -->
+        <div class="nav">
+            <a href="vr-labs.html" class="back-btn">← Back to VR Labs</a>
+        </div>
+
+        <!-- Header Section -->
+        <div class="header">
+            <h1>Welcome to the Chemistry VR Lab</h1>
+            <p>Perform experiments to observe diffusion rates in a virtual environment.</p>
+        </div>
+
+        <!-- Experiment Section -->
+        <div class="experiment">
+            <h2>Interactive Experiment Area</h2>
+            <div class="experiment-container">
+                <!-- Experiment Tools -->
+                <div class="experiment-tools">
+                    <div class="pipette" id="pipette">
+                        <p>KMnO₄ Solution</p>
+                    </div>
+                    <div class="beaker">
+                        <div class="beaker-liquid" id="beaker-liquid"></div>
+                        <p>Beaker (Water)</p>
+                    </div>
+                </div>
+                <div class="instructions">
+                    <p>Instructions:</p>
+                    <ol>
+                        <li>Press "Start Experiment" to initialize the setup.</li>
+                        <li>Use the following keys to move the pipette:</li>
+                        <ul>
+                            <li><b>Arrow Down:</b> Lower the pipette into the beaker.</li>
+                            <li><b>Arrow Up:</b> Raise the pipette out of the beaker.</li>
+                        </ul>
+                        <li>Once inside the beaker, press <b>Enter</b> to measure diffusion rate.</li>
+                        <li>After completing, press "Restart Experiment" to reset the setup.</li>
+                    </ol>
+                    <button id="start-experiment">Start Experiment</button>
+                    <button id="restart-experiment" style="display: none;">Restart Experiment</button>
+                </div>
+            </div>
+            <div class="result-section">
+                <h3>Result</h3>
+                <div id="experiment-result">
+                    <p>No result yet. Complete the experiment to see the output!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Experiment Interaction Script -->
+    <script>
+        const pipette = document.getElementById('pipette');
+        const beakerLiquid = document.getElementById('beaker-liquid');
+        const resultDiv = document.getElementById('experiment-result');
+        const startButton = document.getElementById('start-experiment');
+        const restartButton = document.getElementById('restart-experiment');
+
+        let pipettePosition = -150; // Initial position
+        const pipetteTopLimit = -150; // Limit for the top position
+        const pipetteBottomLimit = 120; // Limit for the bottom position
+        let diffusionInterval; // Timer for updating results dynamically
+
+        // Function to update pipette position
+        function updatePipettePosition() {
+            pipette.style.transform = `translateY(${pipettePosition}px)`;
+        }
+
+        // Initialize experiment
+        startButton.addEventListener('click', () => {
+            pipettePosition = pipetteTopLimit;
+            updatePipettePosition();
+            resultDiv.innerHTML = "<p>Use arrow keys to position the pipette and press Enter inside the beaker to measure diffusion.</p>";
+            restartButton.style.display = "none";
+        });
+
+        // Restart experiment
+        restartButton.addEventListener('click', () => {
+            clearInterval(diffusionInterval);
+            pipettePosition = pipetteTopLimit;
+            updatePipettePosition();
+            beakerLiquid.style.height = "50%";
+            beakerLiquid.style.backgroundColor = "#4caf50"; // Water color reset
+            resultDiv.innerHTML = "<p>No result yet. Complete the experiment to see the output!</p>";
+            restartButton.style.display = "none";
+            startButton.style.display = "inline";
+        });
+
+        // Handle pipette movement and interaction
+        document.addEventListener('keydown', (event) => {
+            switch (event.key) {
+                case 'ArrowDown':
+                    if (pipettePosition < pipetteBottomLimit) {
+                        pipettePosition += 10;
+                        updatePipettePosition();
+                    }
+                    break;
+                case 'ArrowUp':
+                    if (pipettePosition > pipetteTopLimit) {
+                        pipettePosition -= 10;
+                        updatePipettePosition();
+                    }
+                    break;
+                case 'Enter':
+                    if (pipettePosition >= 100 && pipettePosition <= pipetteBottomLimit) {
+                        measureDiffusion();
+                    }
+                    break;
+            }
+        });
+
+        // Measure diffusion rate
+        function measureDiffusion() {
+            let secondsElapsed = 0;
+            const diffusionSpeed = 10; // Rate at which diffusion occurs
+
+            beakerLiquid.style.backgroundColor = '#ff5722'; // Color changes
+            resultDiv.innerHTML = "<p>Experiment running... Observing diffusion over time:</p>";
+
+            diffusionInterval = setInterval(() => {
+                secondsElapsed++;
+                beakerLiquid.style.height = `${50 + secondsElapsed * diffusionSpeed / 2}%`;
+                resultDiv.innerHTML += `<p>Time: ${secondsElapsed}s, Diffusion Height: ${50 + (secondsElapsed * diffusionSpeed) / 2}%</p>`;
+
+                if (secondsElapsed >= 5) { // Stop after 5 seconds
+                    clearInterval(diffusionInterval);
+                    resultDiv.innerHTML += `<p><strong>Diffusion complete!</strong> Total time: 5s.</p>`;
+                    startButton.style.display = "none";
+                    restartButton.style.display = "inline";
+                }
+            }, 1000);
+        }
+
+        // Initialize by calling restart
+        restartButton.click();
+    </script>
+</body>
+</html>
